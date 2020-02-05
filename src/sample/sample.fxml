@@ -25,5 +25,6 @@
       <TextField fx:id="tlfTxt" layoutX="180.0" layoutY="275.0" />
       <Button layoutX="259.0" layoutY="378.0" mnemonicParsing="false" onAction="#remo" text="Remov alt" />
       <Button layoutX="373.0" layoutY="377.0" mnemonicParsing="false" onAction="#ritePeople_tofiler" prefHeight="26.0" prefWidth="94.0" text="Write People to filer" />
+      <Button layoutX="500.0" layoutY="378.0" mnemonicParsing="false" onAction="#readPeople" text="ReadPeople" />
    </children>
 </AnchorPane>

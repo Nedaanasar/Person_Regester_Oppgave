@@ -8,15 +8,30 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
+import static sample.PersonFormatter.formatPersoner;
 import static sample.PesjonRegester.personer;
 
 public class Controller {
     PesjonRegester regester = new PesjonRegester();
 
+//metodet for å lese fra filen
+
+public String testReading() throws IOException {
+    Path path = Paths.get("person.txt");
+    FileOpenerTxt file = new FileOpenerTxt();
+    List<Person> people = file.readPeople(path);
+    StringBuffer str = new StringBuffer();
+    for (Person p : people){
+        str.append(formatPersoner(p));
+        str.append("\n");
+    }
+    return str.toString();
 
 
+}
 
 
 //Metoden for å skrive pesroner i Person.txt
@@ -30,6 +45,8 @@ public class Controller {
         Person person1 = new Person(txtNavn.getText(), new Dato(dag,måned,år),alder,epostTxt.getText(), tlfTxt.getText());
         personer.add(person1);
         //String person1String = PersonFormatter.formatPersoner(person1);
+
+
 
         String person1String = PersonFormatter.formatPeople(personer);
         Path path = Paths.get("person.txt");
@@ -94,6 +111,13 @@ public class Controller {
         testWriter();
 
     }
+    @FXML
+    void readPeople(ActionEvent event) throws IOException {
+       String str =  testReading();
+       resultat.setText(str);
+
+    }
+
 
 
 }

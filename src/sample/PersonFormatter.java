@@ -14,11 +14,12 @@ public class PersonFormatter {
     public static String formatPeople(ArrayList<Person> plist ){
         StringBuffer str = new StringBuffer();
 
+
         for (Person p : plist){
             str.append(formatPersoner(p));
             str.append("\n");
         }
-        System.out.print(str.toString());
+        //System.out.print(str.toString());
         return str.toString();
 
     }
