@@ -1,11 +1,12 @@
-package sample;
+package Filbehandlig;
+
+        import sample.Person;
 
         import java.io.BufferedReader;
         import java.io.IOException;
         import java.nio.file.Files;
         import java.nio.file.Path;
         import java.util.ArrayList;
-        import java.util.List;
 
 public class FileOpenerTxt implements FileOpener {
     public ArrayList<Person> readPeople(Path path) throws IOException {

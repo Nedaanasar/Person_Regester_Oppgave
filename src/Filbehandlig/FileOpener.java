@@ -1,4 +1,6 @@
-package sample;
+package Filbehandlig;
+
+import sample.Person;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -1,20 +1,25 @@
 package sample;
 
+import Filbehandlig.FileOpenerTxt;
+import Filbehandlig.FileSaverTxt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static sample.PersonFormatter.formatPersoner;
 import static sample.PesjonRegester.personer;
 
-public class Controller {
+public class Controller implements Initializable {
     PesjonRegester regester = new PesjonRegester();
 
 //metodet for å lese fra filen
@@ -35,6 +40,7 @@ public String testReading() throws IOException {
 
 
 //Metoden for å skrive pesroner i Person.txt
+
     public void testWriter() {
         int dag = Integer.parseInt(txtdag.getText());
         int måned = Integer.parseInt(txtmåned.getText());
@@ -44,7 +50,6 @@ public String testReading() throws IOException {
 
         Person person1 = new Person(txtNavn.getText(), new Dato(dag,måned,år),alder,epostTxt.getText(), tlfTxt.getText());
         personer.add(person1);
-        //String person1String = PersonFormatter.formatPersoner(person1);
 
 
 
@@ -78,6 +83,9 @@ public String testReading() throws IOException {
 
     @FXML
     private TextField tlfTxt;
+    @FXML
+    private TableView<?> tableView;
+
 
 
     @FXML
@@ -102,10 +110,23 @@ public String testReading() throws IOException {
 
     @FXML
     void visPersoner(ActionEvent event) {
+        int år = Integer.parseInt(txtÅr.getText());
+        int dag = Integer.parseInt(txtdag.getText());
+        int måned = Integer.parseInt(txtmåned.getText());
+        int alder = 2020-år;
+        PersonCollection collection = new PersonCollection();
+        String dateS = txtÅr.getText()+"-"+txtmåned.getText()+"-"+txtdag.getText();
 
-        resultat.setText(regester.vispersoner());
+        PersonModel model = new PersonModel(txtNavn.getText(), dateS,epostTxt.getText(), tlfTxt.getText());
+        collection.leggTilElement(model);
+
+    //    resultat.setText(regester.vispersoner());
 
     }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
+
     @FXML
     void ritePeople_tofiler(ActionEvent event) {
         testWriter();

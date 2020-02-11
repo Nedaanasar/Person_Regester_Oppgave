@@ -1,8 +1,7 @@
 package sample;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import Validtions.*;
+
 import java.util.ArrayList;
 
 public class PesjonRegester {
@@ -22,12 +21,12 @@ public class PesjonRegester {
                     PersonValidator.ePostValidering(email),
                     PersonValidator.tlfNummerValidering(tlf));
             personer.add(enperson);
-            for(Person p: personer){
+           /* for(Person p: personer){
                 System.out.print(p);
-            }
+            }*/
 
         }
-        catch (InvalidDateException iae){
+        catch (InvalidDateException | InvalidNameException | InvalidEpostException | InvalidTlfonNrException iae){
             System.err.println(iae.getMessage());
 
         }

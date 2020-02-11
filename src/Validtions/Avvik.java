@@ -1,7 +1,9 @@
-package sample;
+package Validtions;
+
+import Validtions.InvalidDateException;
 
 public class Avvik {
-    public static int sjekkAlder(int alder) throws InvalidDateException{
+    public static int sjekkAlder(int alder) throws InvalidDateException {
         if (alder<0 || alder>120){
             throw new InvalidDateException("Det er feil alder, alderen må være mellom 0 og 120");
         }

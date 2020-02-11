@@ -1,7 +1,12 @@
-package sample;
+package Filbehandlig;
+
+import Validtions.InvalidPersonFormatException;
+import sample.Dato;
+import sample.Person;
+import sample.PersonFormatter;
 
 public class ParsePesron {
-public static Person parsePerson(String str) throws InvalidPersonFormatException{
+public static Person parsePerson(String str) throws InvalidPersonFormatException {
   String [] strings= str.split(PersonFormatter.DELIMITER);
   if (strings.length != 7){
       throw new InvalidPersonFormatException("Feil bruk av spesil tgen");
