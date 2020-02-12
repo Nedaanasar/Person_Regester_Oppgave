@@ -1,6 +1,7 @@
 package Filbehandlig;
 
         import sample.Person;
+        import sample.PersonModel;
 
         import java.io.BufferedReader;
         import java.io.IOException;
@@ -9,13 +10,13 @@ package Filbehandlig;
         import java.util.ArrayList;
 
 public class FileOpenerTxt implements FileOpener {
-    public ArrayList<Person> readPeople(Path path) throws IOException {
-        ArrayList<Person> plist = new ArrayList<>();
+    public ArrayList<PersonModel> readPeople(Path path) throws IOException {
+        ArrayList<PersonModel> plist = new ArrayList<>();
         try{
             BufferedReader reader = Files.newBufferedReader(path);
             String line;
             while ((line = reader.readLine()) != null){
-                Person p = ParsePesron.parsePerson(line);
+                PersonModel p = ParsePesron.parsePerson(line);
                 plist.add(p);
             }
         }

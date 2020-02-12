@@ -1,6 +1,7 @@
 package Filbehandlig;
 
 import sample.Person;
+import sample.PersonModel;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface FileOpener {
 
-      ArrayList<Person> readPeople(Path path) throws IOException ;
+      ArrayList<PersonModel> readPeople(Path path) throws IOException ;
 
 
 }

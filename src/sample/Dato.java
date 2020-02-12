@@ -24,6 +24,6 @@ public class Dato {
 
     }
     public String toString(){
-        return dag+"/"+måned+"/"+år;
+        return dag+"-"+måned+"-"+år;
     }
 }

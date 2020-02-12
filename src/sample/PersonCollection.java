@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
-import javax.swing.text.TabableView;
+
 
 public class PersonCollection {
     private ObservableList<PersonModel> objToTV = FXCollections.observableArrayList();

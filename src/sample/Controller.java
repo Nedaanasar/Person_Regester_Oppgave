@@ -2,11 +2,11 @@ package sample;
 
 import Filbehandlig.FileOpenerTxt;
 import Filbehandlig.FileSaverTxt;
+import Filbehandlig.PersonFormatter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -16,20 +16,44 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static sample.PersonFormatter.formatPersoner;
-import static sample.PesjonRegester.personer;
+import static Filbehandlig.PersonFormatter.formatPersoner;
+import static sample.PersonRegester.personer;
 
 public class Controller implements Initializable {
-    PesjonRegester regester = new PesjonRegester();
+    private PersonCollection collection= new PersonCollection();
+
+    @FXML
+    private TextField txtNavn;
+
+    @FXML
+    private TextField txtdag;
+
+    @FXML
+    private TextField txtmåned;
+
+    @FXML
+    private TextField txtÅr;
+
+    @FXML
+    private TextField epostTxt;
+
+    @FXML
+    private TextField tlfTxt;
+
+    @FXML
+    private TableView tableView;
+
+
+
 
 //metodet for å lese fra filen
 
 public String testReading() throws IOException {
     Path path = Paths.get("person.txt");
     FileOpenerTxt file = new FileOpenerTxt();
-    List<Person> people = file.readPeople(path);
+    List<PersonModel> people = file.readPeople(path);
     StringBuffer str = new StringBuffer();
-    for (Person p : people){
+    for (PersonModel p : people){
         str.append(formatPersoner(p));
         str.append("\n");
     }
@@ -42,14 +66,16 @@ public String testReading() throws IOException {
 //Metoden for å skrive pesroner i Person.txt
 
     public void testWriter() {
+
         int dag = Integer.parseInt(txtdag.getText());
         int måned = Integer.parseInt(txtmåned.getText());
         int år = Integer.parseInt(txtÅr.getText());
-        int alder = 2020-år;
 
+        Dato nyDato = new Dato(dag,måned,år);
+        String datoS = nyDato.toString();
+        PersonModel model =  new PersonModel(txtNavn.getText(),datoS,epostTxt.getText(), tlfTxt.getText());
+        personer.add(model);
 
-        Person person1 = new Person(txtNavn.getText(), new Dato(dag,måned,år),alder,epostTxt.getText(), tlfTxt.getText());
-        personer.add(person1);
 
 
 
@@ -63,81 +89,71 @@ public String testReading() throws IOException {
         }
     }
 
-    @FXML
-    private TextField txtNavn;
 
-    @FXML
-    private TextField txtdag;
+    PersonRegester regester = new PersonRegester();
 
-    @FXML
-    private TextField txtmåned;
 
-    @FXML
-    private TextArea resultat;
-
-    @FXML
-    private TextField txtÅr;
-
-    @FXML
-    private TextField epostTxt;
-
-    @FXML
-    private TextField tlfTxt;
-    @FXML
-    private TableView<?> tableView;
 
 
 
     @FXML
-    void regester(ActionEvent event) {
-        int dag = Integer.parseInt(txtdag.getText());
-        int måned = Integer.parseInt(txtmåned.getText());
-        int år = Integer.parseInt(txtÅr.getText());
+    void removAll(ActionEvent event) {
+       // resultat.setText(" ");
+        txtNavn.setText("");
+        txtdag.setText("");
+        txtmåned.setText("");
+        txtÅr.setText("");
+        epostTxt.setText("");
+        tlfTxt.setText("");
 
-
-        regester.regResjon(txtNavn.getText(),dag,måned,år,
-                epostTxt.getText()
-                ,tlfTxt.getText());
-
-    }
-
-    @FXML
-    void remo(ActionEvent event) {
-        resultat.setText(" ");
         personer.clear();
 
+    }
+    private PersonModel creatPerson(){
+        int år = Integer.parseInt(txtÅr.getText());
+        int dag = Integer.parseInt(txtdag.getText());
+        int måned = Integer.parseInt(txtmåned.getText());
+        String navn = txtNavn.getText();
+        String epost=epostTxt.getText();
+        String tlfNr = tlfTxt.getText();
+
+        String dateS = dag+"-"+måned+"-"+år;
+        PersonModel obj = null;
+        if(regester.regester(navn,dag,måned,år, epost,tlfNr)){
+            obj = new PersonModel(navn,dateS,epost,tlfNr);
+        }
+        return obj;
     }
 
     @FXML
     void visPersoner(ActionEvent event) {
-        int år = Integer.parseInt(txtÅr.getText());
-        int dag = Integer.parseInt(txtdag.getText());
-        int måned = Integer.parseInt(txtmåned.getText());
-        int alder = 2020-år;
-        PersonCollection collection = new PersonCollection();
-        String dateS = txtÅr.getText()+"-"+txtmåned.getText()+"-"+txtdag.getText();
 
-        PersonModel model = new PersonModel(txtNavn.getText(), dateS,epostTxt.getText(), tlfTxt.getText());
-        collection.leggTilElement(model);
+        PersonModel personObj =creatPerson();
+        if(personObj != null){
+            collection.leggTilElement(personObj);
+        }
+
 
     //    resultat.setText(regester.vispersoner());
 
     }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
 
     @FXML
-    void ritePeople_tofiler(ActionEvent event) {
+    void writePeople_tofiler(ActionEvent event) {
         testWriter();
 
     }
     @FXML
     void readPeople(ActionEvent event) throws IOException {
        String str =  testReading();
-       resultat.setText(str);
+      // resultat.setText(str);
 
     }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        collection.koblingTiltable(tableView);
+    }
+
 
 
 
