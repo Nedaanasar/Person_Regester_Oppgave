@@ -3,11 +3,13 @@ package sample;
 import Filbehandlig.FileOpenerTxt;
 import Filbehandlig.FileSaverTxt;
 import Filbehandlig.PersonFormatter;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static Filbehandlig.PersonFormatter.formatPersoner;
 import static sample.PersonRegester.personer;
@@ -31,8 +34,11 @@ public class Controller implements Initializable {
     @FXML
     private TextField txtmåned;
 
+
     @FXML
     private TextField txtÅr;
+    @FXML
+    private TextField search;
 
     @FXML
     private TextField epostTxt;
@@ -109,6 +115,19 @@ public String testReading() throws IOException {
         personer.clear();
 
     }
+
+
+    @FXML
+    void searchM(KeyEvent event) {
+        String s = search.getText();
+
+        collection.objToTV = collection.objToTV.stream().filter(x->x.getNavn().startsWith(s)).collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+
+    }
+
+
+
     private PersonModel creatPerson(){
         int år = Integer.parseInt(txtÅr.getText());
         int dag = Integer.parseInt(txtdag.getText());

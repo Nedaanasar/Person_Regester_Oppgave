@@ -7,7 +7,7 @@ import javafx.scene.control.TableView;
 
 
 public class PersonCollection {
-    private ObservableList<PersonModel> objToTV = FXCollections.observableArrayList();
+    public ObservableList<PersonModel> objToTV = FXCollections.observableArrayList();
 
     public void koblingTiltable(TableView table) {
         table.setItems(objToTV);

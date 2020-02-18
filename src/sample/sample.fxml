@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -16,7 +17,6 @@
       <TextField fx:id="txtÅr" layoutX="22.0" layoutY="182.0" promptText="År" />
       <TextField fx:id="epostTxt" layoutX="22.0" layoutY="222.0" promptText="Epost" />
       <TextField fx:id="tlfTxt" layoutX="22.0" layoutY="259.0" promptText="Tlf_nummer" />
-      <Button layoutX="37.0" layoutY="375.0" mnemonicParsing="false" onAction="#removAll" text="Remov all" />
       <Button layoutX="142.0" layoutY="316.0" mnemonicParsing="false" onAction="#writePeople_tofiler" prefHeight="26.0" prefWidth="94.0" text="Write People" />
       <Button layoutX="149.0" layoutY="375.0" mnemonicParsing="false" onAction="#readPeople" text="Read People" />
       <TableView fx:id="tableView" layoutX="311.0" layoutY="35.0" prefHeight="374.0" prefWidth="633.0">
@@ -26,7 +26,7 @@
                   <PropertyValueFactory property="navn" />
               </cellValueFactory>
           </TableColumn>
-          <TableColumn prefWidth="113.60003662109375" text="Dato" >
+          <TableColumn prefWidth="113.60003662109375" text="Dato">
               <cellValueFactory>
                   <PropertyValueFactory property="fødselsdato" />
               </cellValueFactory>
@@ -48,5 +48,9 @@
             </TableColumn>
         </columns>
       </TableView>
+      <TextField fx:id="search" layoutX="477.0" layoutY="2.0" onKeyPressed="#searchM" promptText="søk" />
    </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>
