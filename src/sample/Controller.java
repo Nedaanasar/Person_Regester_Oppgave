@@ -122,8 +122,7 @@ public String testReading() throws IOException {
         String s = search.getText();
 
         collection.objToTV = collection.objToTV.stream().filter(x->x.getNavn().startsWith(s)).collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-
+        collection.koblingTiltable(tableView);
     }
 
 
